@@ -5,7 +5,30 @@
             minLength: 0,
             //source es el nombre de la accion en el controlador, lo tengo que poner como aparece en la url
             //por eso va el nombre del elemento asi se completa elementoController y despues de ahi la accion
-            source: "products/autocompletar"
+            source: "products/autocompletar",
+            
+            focus: function(event, ui) {
+                $("#search").val( ui.item.Product.name);
+                return false;
+            },
+            
+            select: function(event, ui) {
+                //con este me autocompleta el buscador y con enter hace un search del producto
+                //$("#search").val(ui.item.Product.name);
+                
+                //$("#search").val(ui.item.Product.id);
+                
+                //con esto logro que cuando clickeo me redirija a la pagina del producto en vez de hacer una busqueda del nombre que seleccione
+                //con el autocompletado
+                //con esto generlo la url SupermercadoCake3/products/view/id con el id del producto al que le hice el click
+                window.location.replace('products/view/'+ ui.item.Product.id);
+                
+                //$("#search-name").html(ui.item.Product.name);
+                
+                //$("#project-icon").attr( "src", "images/" + ui.item.icon );
+ 
+                return false;
+         }
             })
             
             //la funcion data itera sobre el resultado del autocomplete y a cada iteracion le llama item
