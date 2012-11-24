@@ -1,13 +1,6 @@
 <div class="products index">
 	<h2><?php echo __('Products'); ?></h2>
 	
-	
-	<script type="text/javascript" src="../../../jquery/js/jquery-1.8.2.js"></script>  
-    <script type="text/javascript" src="../../../jquery/js/jquery-ui-1.9.1.custom.js"></script>  
-    <script type="text/javascript">  
-        // colocar rutina de inicio aqui  
-    </script>  
-	
 	<?php echo $this->Form->create('Product', array('action'=>'search')); ?>
 	<?php echo $this->Form->input('search'); ?>
 	<?php echo $this->Form->end('Buscar'); ?>
