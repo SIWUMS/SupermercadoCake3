@@ -34,6 +34,20 @@ class ProductsController extends AppController {
 		//$this->render('/products/index');
 		//$this->render('index');
 	}
+	
+	public function autocompletar(){
+		//para ver que tiene la variable adentro
+		//var_dump($this->request);	
+		
+		//tuve que poner request porque le tengo que pedir y poner query porque ahi estaba mandando el term que es lo que viene despues
+		//del ? en la url y ahi dice ?term=algo ahi puedo sacar el algo
+		$products = $this->paginate(array("Product.name LIKE "=> "%".$this->request->query['term']."%"));
+		//con el autoRender (que esta siempre en true) lo pongo en falso y no me busca la vista equivalente a esta accion
+		//lo pongo asi porque no quiero que abra una vista, porque no existe, quiero que se quede en la misma pagina
+		$this->autoRender=false;
+		//con esto genero el json
+		echo json_encode($products);
+	}
 
 /**
  * view method

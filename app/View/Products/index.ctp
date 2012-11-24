@@ -1,8 +1,30 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+	//jquery usa id para referenciar igual que en css
+	$("#search").autocomplete({
+            minLength: 0,
+            //source es el nombre de la accion en el controlador, lo tengo que poner como aparece en la url
+            //por eso va el nombre del elemento asi se completa elementoController y despues de ahi la accion
+            source: "products/autocompletar"
+            })
+            
+            //la funcion data itera sobre el resultado del autocomplete y a cada iteracion le llama item
+        .data( "autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                .data( "item.autocomplete", item )
+                .append( "<a>" + item.Product.name + "<br>" + item.Product.id + "</a>" )
+                .appendTo( ul );
+        };
+      })
+      //le agregue item.Product.name porque queria el nombre del producto y me devolvia un array que primero tenia la palabra Product
+      //y despues otro array adentro donde ahi venia el nombre, al segundo le puse el id del producto
+      //Product es el key del array, por eso lo tengo que poner
+</script>
 <div class="products index">
 	<h2><?php echo __('Products'); ?></h2>
 	
 	<?php echo $this->Form->create('Product', array('action'=>'search')); ?>
-	<?php echo $this->Form->input('search'); ?>
+	<?php echo $this->Form->input('search', array('id'=>'search')); ?>
 	<?php echo $this->Form->end('Buscar'); ?>
 	
 	<table cellpadding="0" cellspacing="0">
