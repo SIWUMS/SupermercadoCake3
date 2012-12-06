@@ -5,6 +5,11 @@
 	<?php
 		echo $this->Form->input('measure_id');
 		echo $this->Form->input('brand_id');
+		
+		//echo $form->labelTag('image_id', 'Image');
+		//echo $html->file('image_id');
+
+
 		echo $this->Form->input('image_id');
 		echo $this->Form->input('name');
 		echo $this->Form->input('quantity');
