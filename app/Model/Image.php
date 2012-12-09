@@ -34,6 +34,18 @@ class Image extends AppModel {
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
+	function beforeSave($created){
+		//var_dump($this->data['Image']['link']['name']);
+		extract($this->data['Image']['link']);
+		$filename = $this->data['Image']['link']['name'];
+		if($size && !$error){
+			move_uploaded_file($tmp_name, WWW_ROOT.'/product_images/'.$filename);
+			$this->data['Image']['link'] = '/product_images/'.$filename;
+		}
+		return true;
+	}
+	
+	
 /**
  * hasOne associations
  *

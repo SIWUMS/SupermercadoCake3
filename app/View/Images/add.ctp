@@ -1,9 +1,9 @@
 <div class="images form">
-<?php echo $this->Form->create('Image'); ?>
+<?php echo $this->Form->create('Image', array('type' => 'file')); ?>
 	<fieldset>
 		<legend><?php echo __('Add Image'); ?></legend>
 	<?php
-		echo $this->Form->input('link');
+		echo $this->Form->input('link', array('type' => 'file'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
