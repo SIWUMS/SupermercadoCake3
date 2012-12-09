@@ -18,7 +18,8 @@
 		</dd>
 		<dt><?php echo __('Image'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($product['Image']['link'], array('controller' => 'images', 'action' => 'view', $product['Image']['id'])); ?>
+			<!-- <?php echo $this->Html->link($product['Image']['link'], array('controller' => 'images', 'action' => 'view', $product['Image']['id'])); ?> -->
+			<?php echo $this->Html->image($product['Image']['link'], array('alt' => 'Producto')); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Name'); ?></dt>
