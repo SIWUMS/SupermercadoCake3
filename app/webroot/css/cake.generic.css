@@ -30,12 +30,12 @@ body {
 	margin: 0;
 }
 a {
-	color: #003d4c;
-	text-decoration: underline;
+	color: #582C64;
+	text-decoration: none;
 	font-weight: bold;
 }
 a:hover {
-	color: #367889;
+	color: #7A3E8B;
 	text-decoration:none;
 }
 a img {
