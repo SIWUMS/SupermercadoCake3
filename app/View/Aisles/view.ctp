@@ -1,12 +1,12 @@
 <div class="aisles view">
-<h2><?php  echo __('Aisle'); ?></h2>
+<h2><?php  echo __('Gondola'); ?></h2>
 	<dl>
 		<dt><?php echo __('Id'); ?></dt>
 		<dd>
 			<?php echo h($aisle['Aisle']['id']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Description'); ?></dt>
+		<dt><?php echo __('Descripcion'); ?></dt>
 		<dd>
 			<?php echo h($aisle['Aisle']['description']); ?>
 			&nbsp;
@@ -14,31 +14,31 @@
 	</dl>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+	<h3><?php echo __('Acciones'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Aisle'), array('action' => 'edit', $aisle['Aisle']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Aisle'), array('action' => 'delete', $aisle['Aisle']['id']), null, __('Are you sure you want to delete # %s?', $aisle['Aisle']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Aisles'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Aisle'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Products'), array('controller' => 'products', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Product'), array('controller' => 'products', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Editar Gondola'), array('action' => 'edit', $aisle['Aisle']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Eliminar Gondola'), array('action' => 'delete', $aisle['Aisle']['id']), null, __('Are you sure you want to delete # %s?', $aisle['Aisle']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Listar Gondolas'), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nueva Gondola'), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Listar Productos'), array('controller' => 'products', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nuevo Producto'), array('controller' => 'products', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
 <div class="related">
-	<h3><?php echo __('Related Products'); ?></h3>
+	<h3><?php echo __('Productos Relacionados'); ?></h3>
 	<?php if (!empty($aisle['Product'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Measure Id'); ?></th>
-		<th><?php echo __('Brand Id'); ?></th>
-		<th><?php echo __('Image Id'); ?></th>
-		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Quantity'); ?></th>
-		<th><?php echo __('Description'); ?></th>
-		<th><?php echo __('Featured'); ?></th>
-		<th><?php echo __('Price'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
+		<th><?php echo __('Id Medida'); ?></th>
+		<th><?php echo __('Id Marca'); ?></th>
+		<th><?php echo __('Id Imagen'); ?></th>
+		<th><?php echo __('Nombre'); ?></th>
+		<th><?php echo __('Cantidad'); ?></th>
+		<th><?php echo __('Descripcion'); ?></th>
+		<th><?php echo __('Destacado'); ?></th>
+		<th><?php echo __('Precio'); ?></th>
+		<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php
 		$i = 0;
@@ -65,7 +65,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Product'), array('controller' => 'products', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('Nuevo Producto'), array('controller' => 'products', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
 </div>
