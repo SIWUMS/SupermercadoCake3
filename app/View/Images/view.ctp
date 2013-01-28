@@ -14,7 +14,7 @@
 	</dl>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+	<h3><?php echo __('Menu'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Editar Imagen'), array('action' => 'edit', $image['Image']['id'])); ?> </li>
 		<li><?php echo $this->Form->postLink(__('Eliminar Imagen'), array('action' => 'delete', $image['Image']['id']), null, __('Are you sure you want to delete # %s?', $image['Image']['id'])); ?> </li>

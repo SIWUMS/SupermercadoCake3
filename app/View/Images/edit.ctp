@@ -10,7 +10,7 @@
 <?php echo $this->Form->end(__('Ingresar')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Acciones'); ?></h3>
+	<h3><?php echo __('Menu'); ?></h3>
 	<ul>
 
 		<li><?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $this->Form->value('Image.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Image.id'))); ?></li>

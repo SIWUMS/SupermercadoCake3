@@ -23,7 +23,7 @@
 
 /** General Style Info **/
 body {
-	background: #003d4c;
+	background: #20093C;
 	color: #fff;
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 	font-size:90%;
@@ -48,11 +48,11 @@ h1, h2, h3, h4 {
 h1 {
 	background:#fff;
 	color: #003d4c;
-	font-size: 100%;
+	font-size: 150%;
 }
 h2 {
 	background:#fff;
-	color: #e32;
+	color: #190135;
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 190%;
 }
@@ -82,7 +82,8 @@ p {
 }
 #header h1 {
 	line-height:20px;
-	background: #003d4c url('../img/cake.icon.png') no-repeat left;
+	/* background: #003d4c url('../img/cake.icon.png') no-repeat left; */
+	background: #20093C;
 	color: #fff;
 	padding: 0px 30px;
 }
@@ -126,7 +127,7 @@ div.actions {
 }
 div.actions h3 {
 	padding-top:0;
-	color:#777;
+	color:#190135;
 }
 
 
@@ -266,7 +267,7 @@ fieldset {
 	padding: 16px 10px;
 }
 fieldset legend {
-	color: #e32;
+	color: #190135;
 	font-size: 160%;
 	font-weight: bold;
 }
@@ -295,7 +296,7 @@ form .required {
 	font-weight: bold;
 }
 form .required label:after {
-	color: #e32;
+	color: #ffffff;
 	content: '*';
 	display:inline;
 }
@@ -354,17 +355,17 @@ input[type=submit] {
 	width: auto;
 }
 form .submit input[type=submit] {
-	background:#62af56;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#76BF6B), to(#3B8230));
-	background-image: -webkit-linear-gradient(top, #76BF6B, #3B8230);
-	background-image: -moz-linear-gradient(top, #76BF6B, #3B8230);
-	border-color: #2d6324;
-	color: #fff;
+	background:#BABABA;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#BABABA), to(#A1A1A1));
+	background-image: -webkit-linear-gradient(top, #BABABA, #A1A1A1);
+	background-image: -moz-linear-gradient(top, #BABABA, #A1A1A1);
+	border-color: #A1A1A1;
+	color: #000000;
 	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0px;
 	padding: 8px 10px;
 }
 form .submit input[type=submit]:hover {
-	background: #5BA150;
+	background: #BABABA;
 }
 /* Form errors */
 form .error {

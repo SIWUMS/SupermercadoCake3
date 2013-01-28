@@ -29,7 +29,7 @@
 	</dl>
 </div>
 <div class="actions">
-	<h3><?php echo __('Acciones'); ?></h3>
+	<h3><?php echo __('Menu'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Editar Gondola-Producto'), array('action' => 'edit', $aislesProduct['AislesProduct']['id'])); ?> </li>
 		<li><?php echo $this->Form->postLink(__('Eliminar Gondola-Producto'), array('action' => 'delete', $aislesProduct['AislesProduct']['id']), null, __('Are you sure you want to delete # %s?', $aislesProduct['AislesProduct']['id'])); ?> </li>

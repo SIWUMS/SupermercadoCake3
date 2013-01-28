@@ -9,7 +9,7 @@
 <?php echo $this->Form->end(__('Ingresar')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Acciones'); ?></h3>
+	<h3><?php echo __('Menu'); ?></h3>
 	<ul>
 
 		<li><?php echo $this->Html->link(__('Listar Imagenes'), array('action' => 'index')); ?></li>

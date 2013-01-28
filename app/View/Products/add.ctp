@@ -22,11 +22,11 @@
 <?php echo $this->Form->end(__('Ingresar')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Acciones'); ?></h3>
+	<h3><?php echo __('Menu'); ?></h3>
 	<ul>
 
 		<li><?php echo $this->Html->link(__('Listar Productos'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('Listar Medidaas'), array('controller' => 'measures', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Listar Medidas'), array('controller' => 'measures', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Nueva Medida'), array('controller' => 'measures', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('Listar Marcas'), array('controller' => 'brands', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('Nueva Marca'), array('controller' => 'brands', 'action' => 'add')); ?> </li>
