@@ -12,6 +12,10 @@ class ProductsController extends AppController {
  *
  * @return void
  */
+ 
+ var $uses = array('Product', 'Brand', 'Measure', 'Image');
+ 
+ 
 	public function index() {
 		$this->Product->recursive = 0;
 		$this->set('products', $this->paginate());
@@ -71,8 +75,38 @@ class ProductsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			//var_dump($this->request->data);
 			$this->Product->create();
 			if ($this->Product->save($this->request->data)) {
+				
+				$producto = $this->request->data;
+				$medida_id = $producto['Product']['measure_id'];
+				$marca_id = $producto['Product']['brand_id'];
+				$imagen_id = $producto['Product']['image_id'];
+				$nombre = $producto['Product']['name'];
+				$numero = $producto['Product']['number'];
+				$cantidad = $producto['Product']['quantity'];
+				$descripcion = $producto['Product']['description'];
+				$destacado = $producto['Product']['featured'];
+				$precio = $producto['Product']['price'];
+				
+				$medidas = $this->Measure->find('first', array('conditions' => array("Measure.id" => $medida_id)));
+				$medida = $medidas['Measure']['type'];
+				$marcas = $this->Brand->find('first', array('conditions' => array("Brand.id" => $marca_id)));
+				$marca = $marcas['Brand']['name'];
+				$imagenes = $this->Image->find('first', array('conditions' => array("Image.id" => $imagen_id)));
+				$imagen = $imagenes['Image']['link'];
+				
+				$r = new HttpRequest('http://localhost/SmartApp2/products/externalAdd', HttpRequest::METH_POST);
+				$r->setOptions(array('cookies' => array('lang' => 'de')));
+				$r->addPostFields(array('measure' => $medida, 'brand' => $marca, 'image' => $imagen, 'name' => $nombre, 'number' => $numero, 'quantity' => $cantidad, 'description' => $descripcion, 'featured' => $destacado, 'price' => $precio));
+				//$r->addPostFile('image', 'profile.jpg', 'image/jpeg');
+				try {
+    				$r->send()->getBody();
+				} catch (HttpException $ex) {
+    			echo $ex;
+				}
+				
 				$this->Session->setFlash(__('The product has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -84,6 +118,7 @@ class ProductsController extends AppController {
 		$images = $this->Product->Image->find('list');
 		$aisles = $this->Product->Aisle->find('list');
 		$this->set(compact('measures', 'brands', 'images', 'aisles'));
+		
 	}
 
 /**
@@ -100,6 +135,37 @@ class ProductsController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Product->save($this->request->data)) {
+				
+				$producto = $this->request->data;
+				$medida_id = $producto['Product']['measure_id'];
+				$marca_id = $producto['Product']['brand_id'];
+				$imagen_id = $producto['Product']['image_id'];
+				$nombre = $producto['Product']['name'];
+				$numero = $producto['Product']['number'];
+				$cantidad = $producto['Product']['quantity'];
+				$descripcion = $producto['Product']['description'];
+				$destacado = $producto['Product']['featured'];
+				$precio = $producto['Product']['price'];
+				
+				$medidas = $this->Measure->find('first', array('conditions' => array("Measure.id" => $medida_id)));
+				$medida = $medidas['Measure']['type'];
+				$marcas = $this->Brand->find('first', array('conditions' => array("Brand.id" => $marca_id)));
+				$marca = $marcas['Brand']['name'];
+				$imagenes = $this->Image->find('first', array('conditions' => array("Image.id" => $imagen_id)));
+				$imagen = $imagenes['Image']['link'];
+				
+				//var_dump($medida.$marca.$imagen.$nombre.$numero.$cantidad.$descripcion.$destacado.$precio);
+				
+				$r = new HttpRequest('http://localhost/SmartApp2/products/externalEdit', HttpRequest::METH_POST);
+				$r->setOptions(array('cookies' => array('lang' => 'de')));
+				$r->addPostFields(array('measure' => $medida, 'brand' => $marca, 'image' => $imagen, 'name' => $nombre, 'number' => $numero, 'quantity' => $cantidad, 'description' => $descripcion, 'featured' => $destacado, 'price' => $precio));
+				//$r->addPostFile('image', 'profile.jpg', 'image/jpeg');
+				try {
+    				echo $r->send()->getBody();
+				} catch (HttpException $ex) {
+    			echo $ex;
+				}
+				
 				$this->Session->setFlash(__('The product has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {

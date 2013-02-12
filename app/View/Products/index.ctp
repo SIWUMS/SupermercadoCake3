@@ -57,6 +57,7 @@
 			<th><?php echo $this->Paginator->sort('brand_id', 'Marca'); ?></th>
 			<th><?php echo $this->Paginator->sort('image_id', 'Imagen'); ?></th>
 			<th><?php echo $this->Paginator->sort('name', 'Nombre'); ?></th>
+			<th><?php echo $this->Paginator->sort('number', 'Numero'); ?></th>
 			<th><?php echo $this->Paginator->sort('quantity', 'Cantidad'); ?></th>
 			<th><?php echo $this->Paginator->sort('description', 'Descripcion'); ?></th>
 			<th><?php echo $this->Paginator->sort('featured', 'Destacado'); ?></th>
@@ -77,6 +78,7 @@
 			<?php echo $this->Html->link($product['Image']['link'], array('controller' => 'images', 'action' => 'view', $product['Image']['id'])); ?>
 		</td>
 		<td><?php echo h($product['Product']['name']); ?>&nbsp;</td>
+		<td><?php echo h($product['Product']['number']); ?>&nbsp;</td>
 		<td><?php echo h($product['Product']['quantity']); ?>&nbsp;</td>
 		<td><?php echo h($product['Product']['description']); ?>&nbsp;</td>
 		<td><?php echo h($product['Product']['featured']); ?>&nbsp;</td>

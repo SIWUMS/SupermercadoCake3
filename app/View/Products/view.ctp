@@ -27,6 +27,11 @@
 			<?php echo h($product['Product']['name']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Numero'); ?></dt>
+		<dd>
+			<?php echo h($product['Product']['number']); ?>
+			&nbsp;
+		</dd>
 		<dt><?php echo __('Cantidad'); ?></dt>
 		<dd>
 			<?php echo h($product['Product']['quantity']); ?>

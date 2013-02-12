@@ -12,6 +12,7 @@
 
 		echo $this->Form->input('image_id', array('label' => 'Imagen'));
 		echo $this->Form->input('name', array('label' => 'Nombre'));
+		echo $this->Form->input('number', array('label' => 'Numero'));
 		echo $this->Form->input('quantity', array('label' => 'Cantidad'));
 		echo $this->Form->input('description', array('label' => 'Descripcion'));
 		echo $this->Form->input('featured', array('label' => 'Destacado'));
