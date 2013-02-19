@@ -161,7 +161,7 @@ class ProductsController extends AppController {
 				$r->addPostFields(array('measure' => $medida, 'brand' => $marca, 'image' => $imagen, 'name' => $nombre, 'number' => $numero, 'quantity' => $cantidad, 'description' => $descripcion, 'featured' => $destacado, 'price' => $precio));
 				//$r->addPostFile('image', 'profile.jpg', 'image/jpeg');
 				try {
-    				echo $r->send()->getBody();
+    				$r->send()->getBody();
 				} catch (HttpException $ex) {
     			echo $ex;
 				}
@@ -194,6 +194,38 @@ class ProductsController extends AppController {
 			throw new MethodNotAllowedException();
 		}
 		$this->Product->id = $id;
+		
+		$producto = $this->Product->findById($id);
+		$medida_id = $producto['Product']['measure_id'];
+		$marca_id = $producto['Product']['brand_id'];
+		$imagen_id = $producto['Product']['image_id'];
+		$nombre = $producto['Product']['name'];
+		$numero = $producto['Product']['number'];
+		$cantidad = $producto['Product']['quantity'];
+		$descripcion = $producto['Product']['description'];
+		$destacado = $producto['Product']['featured'];
+		$precio = $producto['Product']['price'];
+		
+		$medidas = $this->Measure->find('first', array('conditions' => array("Measure.id" => $medida_id)));
+		$medida = $medidas['Measure']['type'];
+		$marcas = $this->Brand->find('first', array('conditions' => array("Brand.id" => $marca_id)));
+		$marca = $marcas['Brand']['name'];
+		$imagenes = $this->Image->find('first', array('conditions' => array("Image.id" => $imagen_id)));
+		$imagen = $imagenes['Image']['link'];
+		
+		
+		$r = new HttpRequest('http://localhost/SmartApp2/products/externalDelete', HttpRequest::METH_POST);
+		$r->setOptions(array('cookies' => array('lang' => 'de')));
+		$r->addPostFields(array('measure' => $medida, 'brand' => $marca, 'image' => $imagen, 'name' => $nombre, 'number' => $numero, 'quantity' => $cantidad, 'description' => $descripcion, 'featured' => $destacado, 'price' => $precio));
+		//$r->addPostFile('image', 'profile.jpg', 'image/jpeg');
+		try {
+   			$r->send()->getBody();
+		} catch (HttpException $ex) {
+   			echo $ex;
+		}
+		//var_dump($medida.$marca.$imagen.$nombre.$numero.$cantidad.$descripcion.$destacado.$precio);
+		
+		
 		if (!$this->Product->exists()) {
 			throw new NotFoundException(__('Invalid product'));
 		}
@@ -203,5 +235,60 @@ class ProductsController extends AppController {
 		}
 		$this->Session->setFlash(__('Product was not deleted'));
 		$this->redirect(array('action' => 'index'));
+	}
+
+	public function internalEdit() {
+		$parametros = $this->request->data;
+		
+		$medext = $parametros['measure'];
+		$marext = $parametros['brand'];
+		$imaext = $parametros['image'];
+		$nomext = $parametros['name'];
+		$numext = $parametros['number'];
+		$canext = $parametros['quantity'];
+		$desext = $parametros['description'];
+		$feaext = $parametros['featured'];
+		$preext = $parametros['price'];
+		
+		$measure = $this->Measure->find('first', array('conditions' => array("Measure.type" => $medext)));
+		$brand = $this->Brand->find('first', array('conditions' => array("Brand.name" => $marext)));
+		$image = $this->Image->find('first', array('conditions' => array("Image.link" => $imaext)));
+		
+		if($measure == NULL) {
+			$measure = new Measure();
+			$measure->type=$medext;
+			$this->Measure->save($measure);
+			$measure_id = $this->Measure->id;
+		}else{
+			
+			$measure_id = $measure['Measure']['id'];
+		}
+		if($brand == NULL) {
+			$brand = new Brand();
+			$brand->name=$marext;
+			$this->Brand->save($brand);
+			$brand_id = $this->Brand->id;
+		}else{
+			$brand_id = $brand['Brand']['id'];
+		}
+		if($image == NULL) {
+			$image = new Image();
+			$image->link=$imaext;
+			$this->Image->save($image);
+			$image_id = $this->Image->id;
+		}else{
+			$image_id = $image['Image']['id'];
+		}
+
+		$product = $this->Product->find('first', array('conditions' => array("Product.measure_id" => $measure_id, "Product.brand_id" => $brand_id, "Product.name" => $nomext, "Product.quantity" => $canext)));
+
+		$producto_id = $product['Product']['id'];
+		$this->Product->id = $producto_id;
+		$this->Product->saveField('image_id', $image_id);
+		$this->Product->saveField('number',$numext);
+		$this->Product->saveField('description',$desext);
+		$this->Product->saveField('featured',$feaext);
+		$this->Product->saveField('price',$preext);
+
 	}
 }
