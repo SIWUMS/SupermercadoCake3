@@ -19,7 +19,7 @@
 		<dt><?php echo __('Imagen'); ?></dt>
 		<dd>
 			<!-- <?php echo $this->Html->link($product['Image']['link'], array('controller' => 'images', 'action' => 'view', $product['Image']['id'])); ?> -->
-			<?php echo $this->Html->image($product['Image']['link'], array('alt' => 'Producto')); ?>
+			<?php echo $this->Html->image($product['Image']['link'], array('alt' => 'Producto', 'class' => 'product-image')); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Nombre'); ?></dt>
@@ -73,7 +73,7 @@
 		<li><?php echo $this->Html->link(__('Nueva Gondola'), array('controller' => 'aisles', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
-<div class="related">
+<!-- <div class="related">
 	<h3><?php echo __('Codigos de Barra Relacionados'); ?></h3>
 	<?php if (!empty($product['Barcode'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
@@ -105,8 +105,8 @@
 			<li><?php echo $this->Html->link(__('Nuevo Codigo de Barra'), array('controller' => 'barcodes', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
-</div>
-<div class="related">
+</div> -->
+<!-- <div class="related">
 	<h3><?php echo __('Gondolas Relacionadas'); ?></h3>
 	<?php if (!empty($product['Aisle'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
@@ -136,4 +136,4 @@
 			<li><?php echo $this->Html->link(__('Nueva Gondola'), array('controller' => 'aisles', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
-</div>
+</div> -->
