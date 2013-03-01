@@ -41,6 +41,20 @@ class PositionsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Position->create();
 			if ($this->Position->save($this->request->data)) {
+				
+				$posicion = $this->request->data;
+				$descripcion = $posicion['Position']['description'];
+				
+				$r = new HttpRequest('http://localhost/SmartApp2/positions/externalPositionAdd', HttpRequest::METH_POST);
+				$r->setOptions(array('cookies' => array('lang' => 'de')));
+				$r->addPostFields(array('description' => $descripcion));
+				
+				try {
+    				$r->send()->getBody();
+				} catch (HttpException $ex) {
+    			echo $ex;
+				}
+				
 				$this->Session->setFlash(__('The position has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -58,11 +72,28 @@ class PositionsController extends AppController {
  */
 	public function edit($id = null) {
 		$this->Position->id = $id;
+		$tuplavieja = $this->Position->find('first', array('conditions' => array("Position.id" => $id)));
+		$posicionvieja = $tuplavieja['Position']['description'];
+		
 		if (!$this->Position->exists()) {
 			throw new NotFoundException(__('Invalid position'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Position->save($this->request->data)) {
+				
+				$posicion = $this->request->data;
+				$descripcion = $posicion['Position']['description'];
+				
+				$r = new HttpRequest('http://localhost/SmartApp2/positions/externalPositionEdit', HttpRequest::METH_POST);
+				$r->setOptions(array('cookies' => array('lang' => 'de')));
+				$r->addPostFields(array('posicionvieja' => $posicionvieja, 'descripcion' => $descripcion));
+				
+				try {
+    				$r->send()->getBody();
+				} catch (HttpException $ex) {
+    			echo $ex;
+				}
+				
 				$this->Session->setFlash(__('The position has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -86,6 +117,20 @@ class PositionsController extends AppController {
 			throw new MethodNotAllowedException();
 		}
 		$this->Position->id = $id;
+		
+		$posicion = $this->Position->findById($id);
+		$descripcion = $posicion['Position']['description'];
+		
+		$r = new HttpRequest('http://localhost/SmartApp2/positions/externalPositionDelete', HttpRequest::METH_POST);
+		$r->setOptions(array('cookies' => array('lang' => 'de')));
+		$r->addPostFields(array('descripcion' => $descripcion));
+		
+		try {
+   			$r->send()->getBody();
+		} catch (HttpException $ex) {
+   			echo $ex;
+		}
+		
 		if (!$this->Position->exists()) {
 			throw new NotFoundException(__('Invalid position'));
 		}

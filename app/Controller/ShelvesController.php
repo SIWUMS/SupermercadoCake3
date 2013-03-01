@@ -41,6 +41,20 @@ class ShelvesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Shelf->create();
 			if ($this->Shelf->save($this->request->data)) {
+				
+				$estante = $this->request->data;
+				$descripcion = $estante['Shelf']['description'];
+				
+				$r = new HttpRequest('http://localhost/SmartApp2/shelves/externalShelfAdd', HttpRequest::METH_POST);
+				$r->setOptions(array('cookies' => array('lang' => 'de')));
+				$r->addPostFields(array('description' => $descripcion));
+				
+				try {
+    				$r->send()->getBody();
+				} catch (HttpException $ex) {
+    			echo $ex;
+				}
+				
 				$this->Session->setFlash(__('The shelf has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -58,11 +72,29 @@ class ShelvesController extends AppController {
  */
 	public function edit($id = null) {
 		$this->Shelf->id = $id;
+		
+		$tuplavieja = $this->Shelf->find('first', array('conditions' => array("Shelf.id" => $id)));
+		$estantevieja = $tuplavieja['Shelf']['description'];
+		
 		if (!$this->Shelf->exists()) {
 			throw new NotFoundException(__('Invalid shelf'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Shelf->save($this->request->data)) {
+				
+				$estante = $this->request->data;
+				$descripcion = $estante['Shelf']['description'];
+				
+				$r = new HttpRequest('http://localhost/SmartApp2/shelves/externalShelfEdit', HttpRequest::METH_POST);
+				$r->setOptions(array('cookies' => array('lang' => 'de')));
+				$r->addPostFields(array('estantevieja' => $estantevieja, 'descripcion' => $descripcion));
+				
+				try {
+    				$r->send()->getBody();
+				} catch (HttpException $ex) {
+    			echo $ex;
+				}
+				
 				$this->Session->setFlash(__('The shelf has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -86,6 +118,20 @@ class ShelvesController extends AppController {
 			throw new MethodNotAllowedException();
 		}
 		$this->Shelf->id = $id;
+		
+		$estante = $this->Shelf->findById($id);
+		$descripcion = $estante['Shelf']['description'];
+		
+		$r = new HttpRequest('http://localhost/SmartApp2/shelves/externalShelfDelete', HttpRequest::METH_POST);
+		$r->setOptions(array('cookies' => array('lang' => 'de')));
+		$r->addPostFields(array('descripcion' => $descripcion));
+		
+		try {
+   			$r->send()->getBody();
+		} catch (HttpException $ex) {
+   			echo $ex;
+		}
+		
 		if (!$this->Shelf->exists()) {
 			throw new NotFoundException(__('Invalid shelf'));
 		}
