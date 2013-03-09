@@ -13,7 +13,7 @@ class ProductsController extends AppController {
  * @return void
  */
  
- var $uses = array('Product', 'Brand', 'Measure', 'Image');
+ var $uses = array('Product', 'Brand', 'Measure', 'Image', 'Aisle', 'Barcode', 'Position', 'Shelf');
  
  
 	public function index() {
@@ -290,5 +290,101 @@ class ProductsController extends AppController {
 		$this->Product->saveField('featured',$feaext);
 		$this->Product->saveField('price',$preext);
 
+	}
+
+	public function mandarBdd(){
+		$aisles = $this->Aisle->find('all');
+		$this->set('aisles', $aisles);
+		//var_dump($aisles);
+		foreach ($aisles as $aisle) {
+			$descripcion = $aisle['Aisle']['description'];
+			$r = new HttpRequest('http://localhost/SmartApp2/aisles/externalAisleAdd', HttpRequest::METH_POST);
+			$r->setOptions(array('cookies' => array('lang' => 'de')));
+			$r->addPostFields(array('description' => $descripcion));
+			
+			try {
+    			$r->send()->getBody();
+			} catch (HttpException $ex) {
+    		echo $ex;
+			}
+		}
+		$barcodes = $this->Barcode->find('all');
+		$this->set('barcodes', $barcodes);
+		foreach ($barcodes as $barcode) {
+			$numero = $barcode['Barcode']['number'];
+			$producto_id = $barcode['Barcode']['product_id'];
+			
+			$productos = $this->Product->find('first', array('conditions' => array("Product.id" => $producto_id)));
+			$producto = $productos['Product']['number'];
+			
+			$r = new HttpRequest('http://localhost/SmartApp2/barcodes/externalBarcodeAdd', HttpRequest::METH_POST);
+			$r->setOptions(array('cookies' => array('lang' => 'de')));
+			$r->addPostFields(array('numero' => $numero, 'producto' => $producto));
+			try {
+    			$r->send()->getBody();
+			} catch (HttpException $ex) {
+    		echo $ex;
+			}
+		}
+		$positions = $this->Position->find('all');
+		$this->set('positions', $positions);
+		foreach ($positions as $position) {
+			$descripcion = $position['Position']['description'];
+			
+			$r = new HttpRequest('http://localhost/SmartApp2/positions/externalPositionAdd', HttpRequest::METH_POST);
+			$r->setOptions(array('cookies' => array('lang' => 'de')));
+			$r->addPostFields(array('description' => $descripcion));
+			
+			try {
+    			$r->send()->getBody();
+			} catch (HttpException $ex) {
+    		echo $ex;
+			}
+		}
+		$shelves = $this->Shelf->find('all');
+		$this->set('shelves', $shelves);
+		foreach ($shelves as $shelf) {
+			$descripcion = $shelf['Shelf']['description'];
+			
+			$r = new HttpRequest('http://localhost/SmartApp2/shelves/externalShelfAdd', HttpRequest::METH_POST);
+			$r->setOptions(array('cookies' => array('lang' => 'de')));
+			$r->addPostFields(array('description' => $descripcion));
+			
+			try {
+    			$r->send()->getBody();
+			} catch (HttpException $ex) {
+    		echo $ex;
+			}
+		}
+		$products = $this->Product->find('all');
+		$this->set('products', $products);
+		foreach ($products as $product) {
+			$medida_id = $product['Product']['measure_id'];
+			$marca_id = $product['Product']['brand_id'];
+			$imagen_id = $product['Product']['image_id'];
+			$nombre = $product['Product']['name'];
+			$numero = $product['Product']['number'];
+			$cantidad = $product['Product']['quantity'];
+			$descripcion = $product['Product']['description'];
+			$destacado = $product['Product']['featured'];
+			$precio = $product['Product']['price'];
+			
+			$medidas = $this->Measure->find('first', array('conditions' => array("Measure.id" => $medida_id)));
+			$medida = $medidas['Measure']['type'];
+			$marcas = $this->Brand->find('first', array('conditions' => array("Brand.id" => $marca_id)));
+			$marca = $marcas['Brand']['name'];
+			$imagenes = $this->Image->find('first', array('conditions' => array("Image.id" => $imagen_id)));
+			$imagen = $imagenes['Image']['link'];
+			
+			$r = new HttpRequest('http://localhost/SmartApp2/products/externalAdd', HttpRequest::METH_POST);
+			$r->setOptions(array('cookies' => array('lang' => 'de')));
+			$r->addPostFields(array('measure' => $medida, 'brand' => $marca, 'image' => $imagen, 'name' => $nombre, 'number' => $numero, 'quantity' => $cantidad, 'description' => $descripcion, 'featured' => $destacado, 'price' => $precio));
+			try {
+    			$r->send()->getBody();
+			} catch (HttpException $ex) {
+    		echo $ex;
+			}
+		}
+		
 	}
 }
